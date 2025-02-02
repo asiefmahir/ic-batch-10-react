@@ -56,6 +56,5 @@ const BioData = (props) => {
 // };
 // add(10, 20); // 30
 // add(100, 200); // 300
-// add(1, 2); // 3
 
 export default BioData;
