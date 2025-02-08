@@ -40,6 +40,18 @@
 .read-the-docs {
   color: #888;
 } */
-.bio-data {
-  border: 1px solid red;
+
+.containter {
+  text-align: center;
+}
+.note-form {
+  text-align: center;
+}
+.notes {
+  text-align: center;
+}
+
+.notes li {
+  list-style: none;
+  margin-top: 1rem;
 }
