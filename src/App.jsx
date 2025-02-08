@@ -2,59 +2,88 @@ import "./App.css";
 import { useState } from "react";
 
 function App() {
-	// console.log("App is invoked");
-	// let counter = 0;
-	console.log("App Function is being Invoked");
+	const [noteTitle, setNoteTitle] = useState("");
+	// noteTitle = "mahir"
+	const [notes, setNotes] = useState([]);
 
-	// State
-	// Render
-	// Re-Render
+	// notes = [
+	// 	 * 	{id: '1', title: "note 1"},
+	// 	 * {id: '2', title: "note 2"},
+	// 	 *
+	// 	 * ]
 
-	const [dynamicCounter, setDynamicCounter] = useState(10);
-	const [name, setName] = useState("Mahir");
-	// dynamicCounter = 12
+	// notes =  [
+	// { id: "1", title: "Note 1" }
+	// ]
 
-	// console.log(janiNah, "janinah");
+	// notes = [{ id: "4", title: "Note 41545453" }]
 
-	const increaseHandler = (value) => {
-		console.log("Increase Handler Triggered");
-		// dynamicCounter++
-		// setDynamicCounter(20);
-		setDynamicCounter(dynamicCounter + value);
-		// dynamicCounter + 1 = 10 + 1 = 11
-
-		// setDynamicCounter(11 + 1)
-		// setDynamicCounter(12)
-		// dynamicCounter = 12
-		// App()
+	const handleTitleChange = (event) => {
+		// noteTitle = event.tar
+		// mahi
+		setNoteTitle(event.target.value); // event.target.value = "mahir"
+		// noteTitle = "mahir"
 	};
 
-	const decreaseHandler = (value) => {
-		console.log(`Decrease Handler triggered`);
-		// counter--;
-		// dynamicCounter--
-		setDynamicCounter(dynamicCounter - value);
-		// console.log(counter);
+	const submitHandler = (event) => {
+		event.preventDefault();
+
+		if (noteTitle.trim() === "") {
+			return alert(`Please Provide a valid title`);
+		}
+		// console.log(noteTitle.trim(), "trimmed");
+
+		const newNote = {
+			id: Date.now() + "",
+			title: noteTitle,
+		};
+		// notes.push(newNote)
+		setNotes([newNote, ...notes]);
+		setNoteTitle("");
 	};
 
-	// decreaseHandler()
+	const removeHandler = (id) => {
+		// id === "3"
 
-	const changeNameHandler = () => {
-		setName("Mahir Asief");
+		/**
+		 * newArr = [
+		 * 	{id: '1', title: "note 1"},
+		 * {id: '2', title: "note 2"},
+		 *
+		 * ]
+		 */
+		const newArr = notes.filter((note) => note.id !== id);
+
+		setNotes(newArr);
+
+		//							()   =>  3  !== 3
 	};
 
 	return (
-		<>
-			{/* <BioData /> */}
-			<h2>Hello React</h2>
-			<p>The value of the counter is {dynamicCounter}</p>
-			<p>hello {name}</p>
-			<button onClick={() => increaseHandler(1)}>Increase By 1</button>
-			<button onClick={() => decreaseHandler(1)}>Decrease By 1</button>
-			<button onClick={() => increaseHandler(5)}>Increase By 5</button>
-			<button onClick={() => decreaseHandler(3)}>Decrease By 3</button>
-			<button onClick={changeNameHandler}>Change Name</button>
-		</>
+		<div className="container">
+			<form onSubmit={submitHandler} className="note-form">
+				<input
+					value={noteTitle}
+					type="text"
+					onChange={handleTitleChange}
+				/>
+				<button type="submit">Create Note</button>
+			</form>
+			<div className="notes">
+				<h2>All Notes</h2>
+				<ul>
+					{notes.map((note) => (
+						<li key={note.id}>
+							<span>{note.title}</span>
+							<button>Edit</button>
+							<button onClick={() => removeHandler(note.id)}>
+								Remove
+							</button>
+						</li>
+					))}
+				</ul>
+			</div>
+		</div>
 	);
 }
 // let counter = 10;
