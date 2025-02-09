@@ -5,6 +5,10 @@ function App() {
 	const [noteTitle, setNoteTitle] = useState("");
 	// noteTitle = "mahir"
 	const [notes, setNotes] = useState([]);
+	// notes = newArr
+	const [editMode, setEditMode] = useState(false);
+
+	const [editableNote, setEditableNote] = useState(null);
 
 	// notes = [
 	// 	 * 	{id: '1', title: "note 1"},
@@ -31,6 +35,11 @@ function App() {
 		if (noteTitle.trim() === "") {
 			return alert(`Please Provide a valid title`);
 		}
+
+		editMode === true ? updateHandler() : createHandler();
+	};
+
+	const createHandler = () => {
 		// console.log(noteTitle.trim(), "trimmed");
 
 		const newNote = {
@@ -59,6 +68,39 @@ function App() {
 		//							()   =>  3  !== 3
 	};
 
+	const editHandler = (note) => {
+		setNoteTitle(note.title);
+		setEditMode(true);
+		setEditableNote(note);
+	};
+
+	// const nums = [1, 2, 3];
+	// // newNums = [2, 10, 6]
+	// const newNums = nums.map((num) => {
+	// 	if (num % 2 === 0) {
+	// 		return num * 5;
+	// 	}
+
+	// 	return num * 2; // 1 *2 = 2
+	// });
+	// console.log(newNums); // []
+
+	const updateHandler = () => {
+		// []
+		const newArr = notes.map((note) => {
+			if (note.id === editableNote.id) {
+				return { ...note, title: noteTitle };
+			}
+
+			return { ...note };
+		});
+
+		setNotes(newArr);
+		// after update logic executed
+		setEditMode(false);
+		setNoteTitle("");
+	};
+
 	return (
 		<div className="container">
 			<form onSubmit={submitHandler} className="note-form">
@@ -67,7 +109,9 @@ function App() {
 					type="text"
 					onChange={handleTitleChange}
 				/>
-				<button type="submit">Create Note</button>
+				<button type="submit">
+					{editMode === true ? "Updated Note" : "Create Note"}
+				</button>
 			</form>
 			<div className="notes">
 				<h2>All Notes</h2>
@@ -75,7 +119,9 @@ function App() {
 					{notes.map((note) => (
 						<li key={note.id}>
 							<span>{note.title}</span>
-							<button>Edit</button>
+							<button onClick={() => editHandler(note)}>
+								Edit
+							</button>
 							<button onClick={() => removeHandler(note.id)}>
 								Remove
 							</button>
