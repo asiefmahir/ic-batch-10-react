@@ -10,6 +10,20 @@ function App() {
 
 	const [editableNote, setEditableNote] = useState(null);
 
+	const [filteredTerm, setFilteredTerm] = useState("all");
+
+	const filteredNotes = notes.filter((note) => {
+		if (filteredTerm === "completed") {
+			return note.isCompleted === true;
+		} else if (filteredTerm === "uncompleted") {
+			return note.isCompleted === false;
+		} else {
+			return true;
+		}
+	});
+
+	// const filteredNotes =
+
 	// notes = [
 	// 	 * 	{id: '1', title: "note 1"},
 	// 	 * {id: '2', title: "note 2"},
@@ -45,6 +59,7 @@ function App() {
 		const newNote = {
 			id: Date.now() + "",
 			title: noteTitle,
+			isCompleted: false,
 		};
 		// notes.push(newNote)
 		setNotes([newNote, ...notes]);
@@ -87,18 +102,36 @@ function App() {
 
 	const updateHandler = () => {
 		// []
-		const newArr = notes.map((note) => {
-			if (note.id === editableNote.id) {
-				return { ...note, title: noteTitle };
-			}
+		// const newArr = notes.map((note) => {
+		// 	if (note.id === editableNote.id) {
+		// 		return { ...note, title: noteTitle };
+		// 	}
 
+		// 	return { ...note };
+		// });
+
+		const newNotes = notes.filter((note) => note.id !== editableNote.id);
+
+		setNotes([{ ...editableNote, title: noteTitle }, ...newNotes]);
+		//
+
+		// setNotes(updatedNotes);
+		// setNotes(newArr);
+		// after update logic executed
+		setEditMode(false);
+		setNoteTitle("");
+	};
+
+	const toggleIsCompletedFlag = (targetedNote) => {
+		// note.isCompleted = !note.isCompleted;
+		const newArr = notes.map((note) => {
+			if (note.id === targetedNote.id) {
+				return { ...note, isCompleted: !note.isCompleted };
+			}
 			return { ...note };
 		});
 
 		setNotes(newArr);
-		// after update logic executed
-		setEditMode(false);
-		setNoteTitle("");
 	};
 
 	return (
@@ -113,11 +146,27 @@ function App() {
 					{editMode === true ? "Updated Note" : "Create Note"}
 				</button>
 			</form>
+			<input type="text" placeholder="Search Notes/Todos" />
 			<div className="notes">
 				<h2>All Notes</h2>
+				<select
+					name=""
+					id=""
+					value={filteredTerm}
+					onChange={(e) => setFilteredTerm(e.target.value)}
+				>
+					<option value="all">All Notes/Todos</option>
+					<option value="completed">Completed Notes/Todos</option>
+					<option value="uncompleted">UnCompleted Notes/Todos</option>
+				</select>
 				<ul>
-					{notes.map((note) => (
+					{filteredNotes.map((note) => (
 						<li key={note.id}>
+							<input
+								type="checkbox"
+								checked={note.isCompleted}
+								onChange={() => toggleIsCompletedFlag(note)}
+							/>
 							<span>{note.title}</span>
 							<button onClick={() => editHandler(note)}>
 								Edit
