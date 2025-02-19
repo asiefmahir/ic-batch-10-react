@@ -1,28 +1,12 @@
-import { useState } from "react";
 import NoteFilterOptions from "./NoteFilterOptions";
 import NoteList from "./NoteList";
 
-const NoteSection = (props) => {
-	const [filteredTerm, setFilteredTerm] = useState("all");
-
-	const propsForNoteList = { ...props, filteredTerm };
-
-	// let a = 10;
+const NoteSection = () => {
 	return (
 		<div className="notes">
 			<h2>All Notes</h2>
-			<NoteFilterOptions
-				filteredTerm={filteredTerm}
-				setFilteredTerm={setFilteredTerm}
-			/>
-			<NoteList
-				{...propsForNoteList}
-				// setNoteTitle={props.setNoteTitle}
-				// setNotes={props.setNotes}
-				// notes={props.notes}
-				// setEditMode={props.setEditMode}
-				// setEditableNote={props.setEditableNote}
-			/>
+			<NoteFilterOptions />
+			<NoteList />
 		</div>
 	);
 };

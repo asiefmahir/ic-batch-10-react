@@ -1,7 +1,9 @@
 /* eslint-disable react/prop-types */
+import { useContext } from "react";
+import { NoteContext } from "../contexts/Note";
 
-const NoteFilterOptions = (props) => {
-	const { filteredTerm, setFilteredTerm } = props;
+const NoteFilterOptions = () => {
+	const { filteredTerm, setFilteredTerm } = useContext(NoteContext);
 	return (
 		<select
 			name=""
