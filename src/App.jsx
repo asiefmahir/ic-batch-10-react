@@ -1,34 +1,13 @@
+/* eslint-disable react/prop-types */
 import "./App.css";
-import { useState } from "react";
 import NoteForm from "./components/NoteForm";
 import NoteSection from "./components/NoteSection";
 
 function App() {
-	const [notes, setNotes] = useState([]);
-	const [editMode, setEditMode] = useState(false);
-	const [editableNote, setEditableNote] = useState(null);
-	const [noteTitle, setNoteTitle] = useState("");
-
-	// tuseday
-
 	return (
 		<div className="container">
-			<NoteForm
-				noteTitle={noteTitle}
-				setNoteTitle={setNoteTitle}
-				editMode={editMode}
-				setNotes={setNotes}
-				notes={notes}
-				editableNote={editableNote}
-				setEditMode={setEditMode}
-			/>
-			<NoteSection
-				setNoteTitle={setNoteTitle}
-				setNotes={setNotes}
-				notes={notes}
-				setEditMode={setEditMode}
-				setEditableNote={setEditableNote}
-			/>
+			<NoteForm />
+			<NoteSection />
 		</div>
 	);
 }
