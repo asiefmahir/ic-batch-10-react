@@ -1,7 +1,31 @@
 /* eslint-disable react/prop-types */
-import { createContext, useState } from "react";
+import { createContext, useState, useReducer } from "react";
 
 export const NoteContext = createContext();
+
+// const initState = {
+// 	notes: [],
+// 	noteTitle: "",
+// 	editMode: false,
+// 	editableNote: null,
+// 	filteredTerm: "all"
+// }
+
+// const noteReducer = (state, action) => {
+// 	switch (action.type) {
+// 		case "create_note": {
+
+// 		}
+
+// 		case "update_note" : {
+
+// 		}
+
+// 		case "edit_note" : {
+
+// 		}
+// 	}
+// }
 
 const NoteProvider = (props) => {
 	const [notes, setNotes] = useState([]);
@@ -9,6 +33,8 @@ const NoteProvider = (props) => {
 	const [editableNote, setEditableNote] = useState(null);
 	const [noteTitle, setNoteTitle] = useState("");
 	const [filteredTerm, setFilteredTerm] = useState("all");
+
+	// const [noteStates, dispatch] = useReducer(noteReducer, initState)
 
 	const submitHandler = (event) => {
 		event.preventDefault();
