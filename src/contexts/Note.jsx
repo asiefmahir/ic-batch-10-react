@@ -1,120 +1,40 @@
 /* eslint-disable react/prop-types */
-import { createContext, useState, useReducer } from "react";
+import { createContext, useReducer } from "react";
+import { noteAppReducer } from "../reducers/note";
 
 export const NoteContext = createContext();
 
-// const initState = {
-// 	notes: [],
-// 	noteTitle: "",
-// 	editMode: false,
-// 	editableNote: null,
-// 	filteredTerm: "all"
-// }
+const initState = {
+	notes: [],
+	editMode: false,
+	editableNote: null,
+	noteTitle: "",
+	filteredTerm: "all",
+};
 
-// const noteReducer = (state, action) => {
-// 	switch (action.type) {
-// 		case "create_note": {
-
-// 		}
-
-// 		case "update_note" : {
-
-// 		}
-
-// 		case "edit_note" : {
-
-// 		}
-// 	}
-// }
+// pure function
 
 const NoteProvider = (props) => {
-	const [notes, setNotes] = useState([]);
-	const [editMode, setEditMode] = useState(false);
-	const [editableNote, setEditableNote] = useState(null);
-	const [noteTitle, setNoteTitle] = useState("");
-	const [filteredTerm, setFilteredTerm] = useState("all");
-
-	// const [noteStates, dispatch] = useReducer(noteReducer, initState)
+	const [noteStates, dispatch] = useReducer(noteAppReducer, initState);
 
 	const submitHandler = (event) => {
 		event.preventDefault();
 
-		if (noteTitle.trim() === "") {
+		if (noteStates.noteTitle.trim() === "") {
 			return alert(`Please Provide a valid title`);
 		}
 
-		editMode === true ? updateHandler() : createHandler();
-	};
-
-	const createHandler = () => {
-		const newNote = {
-			id: Date.now() + "",
-			title: noteTitle,
-			isCompleted: false,
-		};
-		setNotes([newNote, ...notes]);
-		setNoteTitle("");
-	};
-
-	const handleTitleChange = (event) => {
-		setNoteTitle(event.target.value);
-	};
-
-	const updateHandler = () => {
-		const newNotes = notes.filter((note) => note.id !== editableNote.id);
-
-		setNotes([{ ...editableNote, title: noteTitle }, ...newNotes]);
-
-		setEditMode(false);
-		setNoteTitle("");
-	};
-
-	const removeHandler = (id) => {
-		const newArr = notes.filter((note) => note.id !== id);
-		setNotes(newArr);
-	};
-
-	const editHandler = (note) => {
-		setNoteTitle(note.title);
-		setEditMode(true);
-		setEditableNote(note);
-	};
-
-	const toggleIsCompletedFlag = (targetedNote) => {
-		const newArr = notes.map((note) => {
-			if (note.id === targetedNote.id) {
-				return { ...note, isCompleted: !note.isCompleted };
-			}
-			return { ...note };
-		});
-
-		setNotes(newArr);
+		noteStates.editMode === true
+			? dispatch({ type: "UPDATE_NOTE" })
+			: dispatch({ type: "CREATE_NOTE" });
 	};
 
 	const ctxValue = {
-		notes,
-		setNotes,
-		editMode,
-		setEditMode,
-		editableNote,
-		setEditableNote,
-		noteTitle,
-		setNoteTitle,
-		filteredTerm,
-		setFilteredTerm,
 		submitHandler,
-		handleTitleChange,
-		removeHandler,
-		editHandler,
-		toggleIsCompletedFlag,
+		noteStates,
+		dispatch,
 	};
-	// // <App />
 
-	// const ctxValue = {
-	// 	a: 10,
-	// 	name: "mahir",
-	// 	greet: () => console.log("hello Mahir"),
-	// };
 	return (
 		<NoteContext.Provider value={ctxValue}>
 			{props.children}

@@ -1,35 +1,38 @@
 import { useReducer, useState } from "react";
 
-// import { counterReducer } from "./reducers/counter";
+import { counterReducer } from "./reducers/counter";
 
 // const reducer = (state, action) => {}
 
-const counterReducer = (state, action) => {
-	console.log(state, "state");
-	console.log(action, "action");
+// const counterReducer = (state, action) => {
+// 	console.log(state, "state");
+// 	console.log(action, "action");
 
-	switch (action.type) {
-		case "increase_counter": {
-			return state + action.payload;
-		}
+// 	// { type: "increase_counter", payload: 5 }
 
-		case "decrease_counter": {
-			return state - action.payload;
-		}
+// 	switch (action.type) {
+// 		case "increase_counter": {
+// 			// state = state + action.payload
+// 			return state + action.payload;
+// 		}
 
-		default: {
-			return state;
-		}
-	}
+// 		case "decrease_counter": {
+// 			return state - action.payload;
+// 		}
 
-	// if (action === "increase_counter") {
-	// 	return state + 1;
-	// }
+// 		default: {
+// 			return state;
+// 		}
+// 	}
 
-	// if (action === "decrease_counter") {
-	// 	return state - 1;
-	// }
-};
+// 	// if (action === "increase_counter") {
+// 	// 	return state + 1;
+// 	// }
+
+// 	// if (action === "decrease_counter") {
+// 	// 	return state - 1;
+// 	// }
+// };
 
 // dispatch (argument) -> reducer (state, action === argument)
 

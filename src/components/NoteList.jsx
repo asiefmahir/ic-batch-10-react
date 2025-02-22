@@ -3,18 +3,12 @@ import { useContext } from "react";
 import { NoteContext } from "../contexts/Note";
 
 const NoteList = () => {
-	const {
-		filteredTerm,
-		notes,
-		toggleIsCompletedFlag,
-		editHandler,
-		removeHandler,
-	} = useContext(NoteContext);
+	const { noteStates, dispatch } = useContext(NoteContext);
 
-	const filteredNotes = notes.filter((note) => {
-		if (filteredTerm === "completed") {
+	const filteredNotes = noteStates.notes.filter((note) => {
+		if (noteStates.filteredTerm === "completed") {
 			return note.isCompleted === true;
-		} else if (filteredTerm === "uncompleted") {
+		} else if (noteStates.filteredTerm === "uncompleted") {
 			return note.isCompleted === false;
 		} else {
 			return true;
@@ -28,11 +22,26 @@ const NoteList = () => {
 					<input
 						type="checkbox"
 						checked={note.isCompleted}
-						onChange={() => toggleIsCompletedFlag(note)}
+						onChange={() =>
+							dispatch({
+								type: "TOGGLE_IS_COMPLETED_FLAG",
+								payload: note.id,
+							})
+						}
 					/>
 					<span>{note.title}</span>
-					<button onClick={() => editHandler(note)}>Edit</button>
-					<button onClick={() => removeHandler(note.id)}>
+					<button
+						onClick={() =>
+							dispatch({ type: "EDIT_NOTE", payload: note })
+						}
+					>
+						Edit
+					</button>
+					<button
+						onClick={() =>
+							dispatch({ type: "REMOVE_NOTE", payload: note.id })
+						}
+					>
 						Remove
 					</button>
 				</li>

@@ -3,13 +3,18 @@ import { useContext } from "react";
 import { NoteContext } from "../contexts/Note";
 
 const NoteFilterOptions = () => {
-	const { filteredTerm, setFilteredTerm } = useContext(NoteContext);
+	const { noteStates, dispatch } = useContext(NoteContext);
 	return (
 		<select
 			name=""
 			id=""
-			value={filteredTerm}
-			onChange={(e) => setFilteredTerm(e.target.value)}
+			value={noteStates.filteredTerm}
+			onChange={(e) =>
+				dispatch({
+					type: "CHANGE_FILTER_TERM",
+					payload: e.target.value,
+				})
+			}
 		>
 			<option value="all">All Notes/Todos</option>
 			<option value="completed">Completed Notes/Todos</option>
