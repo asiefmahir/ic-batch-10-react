@@ -1,7 +1,4 @@
-import { useState, useCallback } from "react";
-import AppTitle from "./components/AppTitle";
-import Button from "./components/Button";
-import CounterTitle from "./components/CounterTitle";
+import { useState, useEffect } from "react";
 
 // const add = () => {
 // 	console.log("add");
@@ -10,41 +7,115 @@ import CounterTitle from "./components/CounterTitle";
 // add()
 
 function App() {
-	console.log("App is Rendering");
-	// Data Layer Changes -> props, state
+	const [posts, setPosts] = useState([]);
+	const [noteTitle, setNoteTitle] = useState("");
+	const [counter, setCounter] = useState(10);
+	const [counter2, setCounter2] = useState(25);
 
-	const [count, setCount] = useState(10);
-	// count = 11
-	const [count2, setCount2] = useState(5);
+	const [notes, setNotes] = useState([]);
 
-	const increaseHandler = useCallback(() => {
-		setCount((prevValue) => prevValue + 1);
-		// setCount(count + 1);
-		// count + 1 = 10 + 1 = 11
+	const getAllNotes = async () => {
+		fetch(`http://localhost:3000/notes`)
+			.then((res) => res.json())
+			.then((data) => {
+				console.log(data, "data");
+				setNotes(data);
+			});
+	};
+
+	useEffect(() => {
+		console.log("I am inside useEffect");
+		fetch(`http://localhost:3000/posts`)
+			.then((res) => res.json())
+			.then((data) => {
+				console.log(data, "data");
+				setPosts(data);
+			});
 	}, []);
 
-	// heap memory -> #7788SS
-
-	// stack memory -> #5456AS // heap memory -> #5456AS
-	// memory Location ->
-
-	const increaseHandler2 = useCallback(() => {
-		setCount2((prev) => prev + 3);
+	useEffect(() => {
+		console.log("I am inside notes effect");
+		getAllNotes();
 	}, []);
-	// heap memory -> #7788SS
 
-	// stack memory -> #455ASAS // heap memory -> #455ASAS
+	console.log("I am outside fetch");
+	// posts = data
+	// fetch(`https://jsonplaceholder.typicode.com/posts?_limit=5`)
+	// 	.then((res) => res.json())
+	// 	.then((data) => {
+	// 		console.log(data, "data");
+	// 		setPosts(data);
+	// 	});
+
+	const submitHandler = (e) => {
+		e.preventDefault();
+		const newNote = {
+			id: Date.now() + "",
+			title: noteTitle,
+			isCompleted: false,
+		};
+
+		fetch(`http://localhost:3000/notes`, {
+			method: "POST",
+			body: JSON.stringify(newNote),
+			headers: {
+				"Content-Type": "application/json",
+			},
+		}).then(() => {
+			getAllNotes();
+			setNoteTitle("");
+		});
+	};
+
+	// delete // update // filtering
 
 	return (
 		<>
-			<AppTitle />
-			<div className="counter-app">
-				<CounterTitle counter={count} />
-				<Button clickHandler={increaseHandler} />
+			<div className="counter">
+				<p>The value of the counter is {counter}</p>
+				<button onClick={() => setCounter(counter + 1)}>
+					Increase By 1
+				</button>
 			</div>
-			<div className="counter-app">
-				<CounterTitle counter={count2} />
-				<Button clickHandler={increaseHandler2} />
+			<div className="counter">
+				<p>The value of the counter is {counter2}</p>
+				<button onClick={() => setCounter2(counter2 + 5)}>
+					Increase By 5
+				</button>
+			</div>
+			<div className="post-list">
+				<h2>All Posts</h2>
+				<ul>
+					{posts.map((post) => (
+						<li key={post.id}>{post.title}</li>
+					))}
+				</ul>
+			</div>
+			<div className="post-list">
+				<form onSubmit={submitHandler}>
+					<input
+						type="text"
+						value={noteTitle}
+						onChange={(e) => setNoteTitle(e.target.value)}
+					/>
+					<button type="submit">Create Note</button>
+				</form>
+				<h2>All Notes</h2>
+				<ul>
+					{notes.map((note) => (
+						<li key={note.id}>
+							<input
+								type="checkbox"
+								checked={note.isCompleted}
+								name=""
+								id=""
+							/>
+							<span>{note.title}</span>
+							<button>Edit</button>
+							<button>Remove</button>
+						</li>
+					))}
+				</ul>
 			</div>
 		</>
 	);
