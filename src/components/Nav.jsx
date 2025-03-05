@@ -14,6 +14,9 @@ const Nav = () => {
 					<Link to="/posts">All Posts</Link>
 				</li>
 				<li>
+					<Link to="/redux-example">Redux Example</Link>
+				</li>
+				<li>
 					<Link to="/notes">All Notes</Link>
 				</li>
 			</ul>
