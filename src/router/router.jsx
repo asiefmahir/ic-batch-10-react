@@ -4,6 +4,8 @@ import About from "../pages/About";
 import PostList from "../pages/PostList";
 import Root from "../pages/Root";
 import PostDetails from "../pages/PostDetails";
+import ReduxExample from "../pages/ReduxExample";
+
 import App from "../App";
 
 export const ourRouter = createBrowserRouter([
@@ -16,6 +18,7 @@ export const ourRouter = createBrowserRouter([
 			{ path: "/posts", element: <PostList /> },
 			{ path: "/posts/:id", element: <PostDetails /> },
 			{ path: "/notes", element: <App /> },
+			{ path: "/redux-example", element: <ReduxExample /> },
 		],
 	},
 ]);
