@@ -1,27 +1,22 @@
 import { Link } from "react-router";
 
-const Nav = () => {
+function Nav() {
 	return (
-		<nav>
-			<ul>
-				<li>
-					<Link to="/">Home</Link>
-				</li>
-				<li>
-					<Link to="/about">About</Link>
-				</li>
-				<li>
-					<Link to="/posts">All Posts</Link>
-				</li>
-				<li>
-					<Link to="/redux-example">Redux Example</Link>
-				</li>
-				<li>
-					<Link to="/notes">All Notes</Link>
-				</li>
-			</ul>
-		</nav>
+		<header className="header">
+			<div className="container">
+				<nav className="header__navbar">
+					<ul>
+						<li>
+							<Link to="/">Shop</Link>
+						</li>
+						<li>
+							<Link to="/cart">Cart</Link>
+						</li>
+					</ul>
+				</nav>
+			</div>
+		</header>
 	);
-};
+}
 
 export default Nav;
