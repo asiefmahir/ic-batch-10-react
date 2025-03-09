@@ -1,24 +1,16 @@
 import { createBrowserRouter } from "react-router";
-import Home from "../pages/Home";
-import About from "../pages/About";
-import PostList from "../pages/PostList";
-import Root from "../pages/Root";
-import PostDetails from "../pages/PostDetails";
-import ReduxExample from "../pages/ReduxExample";
 
-import App from "../App";
+import Root from "../pages/Root";
+import Shop from "../pages/Shop";
+import Cart from "../pages/Cart";
 
 export const ourRouter = createBrowserRouter([
 	{
 		path: "/",
 		element: <Root />,
 		children: [
-			{ path: "/", element: <Home /> },
-			{ path: "/about", element: <About /> },
-			{ path: "/posts", element: <PostList /> },
-			{ path: "/posts/:id", element: <PostDetails /> },
-			{ path: "/notes", element: <App /> },
-			{ path: "/redux-example", element: <ReduxExample /> },
+			{ path: "/", element: <Shop /> },
+			{ path: "/cart", element: <Cart /> },
 		],
 	},
 ]);
