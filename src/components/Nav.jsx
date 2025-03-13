@@ -12,6 +12,9 @@ function Nav() {
 						<li>
 							<Link to="/cart">Cart</Link>
 						</li>
+						<li>
+							<Link to="/posts">Posts</Link>
+						</li>
 					</ul>
 				</nav>
 			</div>
