@@ -1,54 +1,54 @@
-// export const cartReducer = (state = [], action) => {
-// 	// action === {
-// 	// 				// 		type: "cart/addToCart",
-// 	// 				// 		payload: product,
-// 	// 				// 	}
-// 	switch (action.type) {
-// 		case "cart/addToCart": {
-// 			const existingItem = state.find(
-// 				(item) => item.id === action.payload.id,
-// 			);
+export const cartReducer = (state = [], action) => {
+	// action === {
+	// 				// 		type: "cart/addToCart",
+	// 				// 		payload: product,
+	// 				// 	}
+	switch (action.type) {
+		case "cart/addToCart": {
+			const existingItem = state.find(
+				(item) => item.id === action.payload.id,
+			);
 
-// 			return existingItem
-// 				? state.map((item) => {
-// 						if (item.id === existingItem.id) {
-// 							return { ...item, quantity: item.quantity + 1 };
-// 						}
-// 						return { ...item };
-// 				  })
-// 				: [...state, { ...action.payload, quantity: 1 }];
-// 		}
-// 		case "cart/removeItemFromCart": {
-// 			// action.payload = 5;
-// 			// [1, 2, 3, 4, 5, 6];
+			return existingItem
+				? state.map((item) => {
+						if (item.id === existingItem.id) {
+							return { ...item, quantity: item.quantity + 1 };
+						}
+						return { ...item };
+				  })
+				: [...state, { ...action.payload, quantity: 1 }];
+		}
+		case "cart/removeItemFromCart": {
+			// action.payload = 5;
+			// [1, 2, 3, 4, 5, 6];
 
-// 			const newState = state.filter((item) => item.id !== action.payload);
-// 			return newState;
-// 			// 1 !== 5;
-// 			// 2 !== 5;
-// 			// 3 !== 5;
-// 			// 4 !== 5;
-// 			// 5 !== 5;
-// 			// 6 !== 5;
-// 		}
-// 		case "cart/modifyQuantityOfAnItem": {
-// 			const newStateArray = state.map((item) => {
-// 				if (item.id === action.payload.id) {
-// 					return { ...item, quantity: action.payload.quantity };
-// 				}
-// 				return { ...item };
-// 			});
+			const newState = state.filter((item) => item.id !== action.payload);
+			return newState;
+			// 1 !== 5;
+			// 2 !== 5;
+			// 3 !== 5;
+			// 4 !== 5;
+			// 5 !== 5;
+			// 6 !== 5;
+		}
+		case "cart/modifyQuantityOfAnItem": {
+			const newStateArray = state.map((item) => {
+				if (item.id === action.payload.id) {
+					return { ...item, quantity: action.payload.quantity };
+				}
+				return { ...item };
+			});
 
-// 			return newStateArray;
-// 		}
-// 		case "cart/clearCart": {
-// 			return [];
-// 		}
-// 		default: {
-// 			return state;
-// 		}
-// 	}
-// };
+			return newStateArray;
+		}
+		case "cart/clearCart": {
+			return [];
+		}
+		default: {
+			return state;
+		}
+	}
+};
 
 // import { createReducer } from "@reduxjs/toolkit";
 
@@ -92,50 +92,50 @@
 
 // state = []
 
-import { createSlice } from "@reduxjs/toolkit";
+// import { createSlice } from "@reduxjs/toolkit";
 
-const initState = [];
+// const initState = [];
 
-export const cartSlice = createSlice({
-	name: "cart",
-	initialState: initState,
-	reducers: {
-		addToCart(state, action) {
-			const existingItem = state.find(
-				(item) => item.id === action.payload.id,
-			);
+// export const cartSlice = createSlice({
+// 	name: "cart",
+// 	initialState: initState,
+// 	reducers: {
+// 		addToCart(state, action) {
+// 			const existingItem = state.find(
+// 				(item) => item.id === action.payload.id,
+// 			);
 
-			existingItem
-				? existingItem.quantity++
-				: state.push({ ...action.payload, quantity: 1 });
-		},
+// 			existingItem
+// 				? existingItem.quantity++
+// 				: state.push({ ...action.payload, quantity: 1 });
+// 		},
 
-		removeItemFromCart(state, action) {
-			const newState = state.filter((item) => item.id !== action.payload);
-			return newState;
-		},
+// 		removeItemFromCart(state, action) {
+// 			const newState = state.filter((item) => item.id !== action.payload);
+// 			return newState;
+// 		},
 
-		modifyQuantityOfAnItem(state, action) {
-			const itemIndex = state.findIndex(
-				(item) => item.id === action.payload.id,
-			);
+// 		modifyQuantityOfAnItem(state, action) {
+// 			const itemIndex = state.findIndex(
+// 				(item) => item.id === action.payload.id,
+// 			);
 
-			console.log(itemIndex, "itemIndex");
+// 			console.log(itemIndex, "itemIndex");
 
-			state[itemIndex].quantity = action.payload.quantity;
-		},
+// 			state[itemIndex].quantity = action.payload.quantity;
+// 		},
 
-		clearCart() {
-			return [];
-		},
-	},
-});
+// 		clearCart() {
+// 			return [];
+// 		},
+// 	},
+// });
 
-export const {
-	addToCart,
-	modifyQuantityOfAnItem,
-	removeItemFromCart,
-	clearCart,
-} = cartSlice.actions;
+// export const {
+// 	addToCart,
+// 	modifyQuantityOfAnItem,
+// 	removeItemFromCart,
+// 	clearCart,
+// } = cartSlice.actions;
 
 // cartSlice.reducer
