@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchShopProducts } from "../store/api-services/shop";
+import { fetchShopProducts } from "../store/reducers/shop";
 
 import ProductCard from "../components/ProductCard";
 
@@ -10,7 +10,7 @@ const Shop = () => {
 	);
 	const dispatch = useDispatch();
 	useEffect(() => {
-		dispatch(fetchShopProducts);
+		dispatch(fetchShopProducts());
 	}, []);
 	return (
 		<div>
