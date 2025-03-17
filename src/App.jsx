@@ -1,53 +1,44 @@
-import { useState, useEffect } from "react";
-
 // const add = () => {
 // 	console.log("add");
 // };
 
 // add()
+import { useState } from "react";
+import {
+	useGetNotesQuery,
+	useCreateNoteMutation,
+	useRemoveNoteMutation,
+} from "./services";
 
 function App() {
 	const [noteTitle, setNoteTitle] = useState("");
+	const { data: notes, isFetching, isError, error } = useGetNotesQuery();
 
-	const [notes, setNotes] = useState([]);
-
-	const getAllNotes = async () => {
-		fetch(`http://localhost:4000/notes`)
-			.then((res) => res.json())
-			.then((data) => {
-				console.log(data, "data");
-				setNotes(data);
-			});
-	};
-
-	useEffect(() => {
-		console.log("I am inside notes effect");
-		getAllNotes();
-	}, []);
-
-	console.log("I am outside fetch");
+	const [addNote] = useCreateNoteMutation();
+	const [deleteNote] = useRemoveNoteMutation();
 
 	const submitHandler = (e) => {
 		e.preventDefault();
 		const newNote = {
-			id: Date.now() + "",
 			title: noteTitle,
 			isCompleted: false,
 		};
-
-		fetch(`http://localhost:3000/notes`, {
-			method: "POST",
-			body: JSON.stringify(newNote),
-			headers: {
-				"Content-Type": "application/json",
-			},
-		}).then(() => {
-			getAllNotes();
-			setNoteTitle("");
-		});
+		addNote(newNote);
 	};
 
 	// delete // update // filtering
+
+	if (isFetching) {
+		return <h2>Loading.......</h2>;
+	}
+
+	if (isError) {
+		return <h2>{error.message}</h2>;
+	}
+
+	const removeHandler = (id) => {
+		deleteNote(id);
+	};
 
 	return (
 		<>
@@ -62,7 +53,7 @@ function App() {
 				</form>
 				<h2>All Notes</h2>
 				<ul>
-					{notes.map((note) => (
+					{notes?.map((note) => (
 						<li key={note.id}>
 							<input
 								type="checkbox"
@@ -72,7 +63,9 @@ function App() {
 							/>
 							<span>{note.title}</span>
 							<button>Edit</button>
-							<button>Remove</button>
+							<button onClick={() => removeHandler(note.id)}>
+								Remove
+							</button>
 						</li>
 					))}
 				</ul>

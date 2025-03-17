@@ -1,17 +1,14 @@
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchShopProducts } from "../store/reducers/shop";
-
 import ProductCard from "../components/ProductCard";
+import { useGetAllProductsQuery } from "../services";
 
 const Shop = () => {
-	const { isLoading, errorMessage, products } = useSelector(
-		(storeState) => storeState.shop,
-	);
-	const dispatch = useDispatch();
-	useEffect(() => {
-		dispatch(fetchShopProducts());
-	}, []);
+	const {
+		data: products,
+		isFetching,
+		// isLoading,
+		isError,
+		error,
+	} = useGetAllProductsQuery();
 	return (
 		<div>
 			<div className="page-banner">
@@ -30,7 +27,7 @@ const Shop = () => {
 					</div>
 					<div className="section__content">
 						<div className="grid three">
-							{products.map((product) => (
+							{products?.map((product) => (
 								<ProductCard
 									key={product.id}
 									product={product}
