@@ -8,11 +8,17 @@ import {
 	useGetNotesQuery,
 	useCreateNoteMutation,
 	useRemoveNoteMutation,
-} from "./services";
+} from "./services/note";
 
 function App() {
 	const [noteTitle, setNoteTitle] = useState("");
-	const { data: notes, isFetching, isError, error } = useGetNotesQuery();
+	const {
+		data: notes,
+		isFetching,
+		isLoading,
+		isError,
+		error,
+	} = useGetNotesQuery();
 
 	const [addNote] = useCreateNoteMutation();
 	const [deleteNote] = useRemoveNoteMutation();
@@ -28,7 +34,7 @@ function App() {
 
 	// delete // update // filtering
 
-	if (isFetching) {
+	if (isLoading) {
 		return <h2>Loading.......</h2>;
 	}
 

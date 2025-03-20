@@ -1,5 +1,5 @@
 import ProductCard from "../components/ProductCard";
-import { useGetAllProductsQuery } from "../services";
+import { useGetAllProductsQuery } from "../services/product";
 
 const Shop = () => {
 	const {
