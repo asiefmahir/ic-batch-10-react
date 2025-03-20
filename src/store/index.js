@@ -27,6 +27,7 @@ import { counterReducer } from "./reducers/counter";
 import { themeReducer } from "./reducers/theme";
 import { cartSlice } from "./reducers/cart";
 import { postSlice } from "./reducers/post";
+import { setupListeners } from "@reduxjs/toolkit/query/react";
 
 import { rootApi } from "../services";
 
@@ -44,3 +45,5 @@ export const ourStore = configureStore({
 	reducer: rootReducer,
 	middleware: (gDM) => gDM().concat(rootApi.middleware),
 });
+
+setupListeners(ourStore.dispatch);
