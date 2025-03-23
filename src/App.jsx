@@ -4,24 +4,18 @@
 
 // add()
 import { useState } from "react";
-import {
-	useGetNotesQuery,
-	useCreateNoteMutation,
-	useRemoveNoteMutation,
-} from "./services/note";
+import { useNotes } from "./hooks/server-states/useNotes";
 
 function App() {
 	const [noteTitle, setNoteTitle] = useState("");
 	const {
-		data: notes,
-		isFetching,
-		isLoading,
+		notes,
 		isError,
+		isLoading,
 		error,
-	} = useGetNotesQuery();
-
-	const [addNote] = useCreateNoteMutation();
-	const [deleteNote] = useRemoveNoteMutation();
+		createMutation,
+		removeNoteMutation,
+	} = useNotes();
 
 	const submitHandler = (e) => {
 		e.preventDefault();
@@ -29,7 +23,8 @@ function App() {
 			title: noteTitle,
 			isCompleted: false,
 		};
-		addNote(newNote);
+		createMutation.mutate(newNote);
+		setNoteTitle("");
 	};
 
 	// delete // update // filtering
@@ -43,7 +38,8 @@ function App() {
 	}
 
 	const removeHandler = (id) => {
-		deleteNote(id);
+		// deleteNote(id);
+		removeNoteMutation.mutate(id);
 	};
 
 	return (
