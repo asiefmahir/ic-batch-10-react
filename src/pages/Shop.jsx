@@ -1,14 +1,19 @@
 import ProductCard from "../components/ProductCard";
-import { useGetAllProductsQuery } from "../services/product";
+import { useQuery } from "@tanstack/react-query";
 
 const Shop = () => {
 	const {
 		data: products,
+		isPending,
+		isLoading,
 		isFetching,
-		// isLoading,
-		isError,
-		error,
-	} = useGetAllProductsQuery();
+	} = useQuery({
+		queryKey: ["products"],
+		queryFn: () =>
+			fetch(`http://localhost:3000/products`).then((res) => res.json()),
+		// refetchOnWindowFocus: false,
+		// refetchOnMount: false,
+	});
 	return (
 		<div>
 			<div className="page-banner">

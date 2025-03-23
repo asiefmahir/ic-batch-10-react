@@ -19,51 +19,6 @@
 			"id": "1740591249036",
 			"title": "Note 4",
 			"isCompleted": false
-		},
-		{
-			"id": "1740591292757",
-			"title": "Note 5",
-			"isCompleted": false
-		},
-		{
-			"id": "1740591438661",
-			"title": "Note 6",
-			"isCompleted": false
-		},
-		{
-			"id": "1740591570100",
-			"title": "Note 7",
-			"isCompleted": false
-		},
-		{
-			"title": "Note 10",
-			"isCompleted": false,
-			"id": "FQN5P8P"
-		},
-		{
-			"title": "Note 11",
-			"isCompleted": false,
-			"id": "dQBMCdu"
-		},
-		{
-			"title": "Note 12",
-			"isCompleted": false,
-			"id": "jEyP1pg"
-		},
-		{
-			"title": "Note 200",
-			"isCompleted": false,
-			"id": "LwCQn4v"
-		},
-		{
-			"title": "Note 14",
-			"isCompleted": false,
-			"id": "26XTb_r"
-		},
-		{
-			"title": "Note 15",
-			"isCompleted": false,
-			"id": "nZh6KSK"
 		}
 	],
 	"posts": [
@@ -102,7 +57,7 @@
 		{
 			"id": "prod-4",
 			"title": "Dummy Bat",
-			"price": 500,
+			"price": 200,
 			"image": "https://media.istockphoto.com/id/462258845/photo/wooden-baseball-bat-isolated-on-white-background.jpg?b=1&s=612x612&w=0&k=20&c=0Y5Y_fVBpcz2-Rf-f8arDBNPkOpDZmPgEX9YrbtzDvo="
 		}
 	]
