@@ -18,6 +18,9 @@ function Nav() {
 						<li>
 							<Link to="/notes">NoteApp</Link>
 						</li>
+						<li>
+							<Link to="/add-product">Add Product</Link>
+						</li>
 					</ul>
 				</nav>
 			</div>
