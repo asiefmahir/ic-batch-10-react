@@ -5,6 +5,7 @@ import Shop from "../pages/Shop";
 import Cart from "../pages/Cart";
 import Posts from "../pages/Posts";
 import App from "../App";
+import AddProduct from "../pages/AddProduct";
 
 export const ourRouter = createBrowserRouter([
 	{
@@ -15,6 +16,7 @@ export const ourRouter = createBrowserRouter([
 			{ path: "/cart", element: <Cart /> },
 			{ path: "/posts", element: <Posts /> },
 			{ path: "/notes", element: <App /> },
+			{ path: "/add-product", element: <AddProduct /> },
 		],
 	},
 ]);

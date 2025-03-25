@@ -39,11 +39,32 @@ export const useNotes = () => {
 			fetch(`http://localhost:3000/notes/${noteId}`, {
 				method: "DELETE",
 			}),
-		onSuccess: () => {
-			client.invalidateQueries("notes");
-			// ['notes, products'].map(key => {
-			// 	client.invalidateQueries(key)
-			// })
+		// onSuccess: () => {
+		// 	client.invalidateQueries("notes");
+		// 	// ['notes, products'].map(key => {
+		// 	// 	client.invalidateQueries(key)
+		// 	// })
+		// },
+		// before mutationFn
+		onMutate: async (noteId) => {
+			await client.cancelQueries(["notes"]);
+			const previousNotes = client.getQueryData(["notes"]);
+			console.log(previousNotes, "prevNotes");
+			client.setQueryData(["notes"], (oldData) => {
+				const newNotes = oldData.filter((note) => note.id !== noteId);
+				return newNotes;
+			});
+			return { previousNotes };
+		},
+		onError: (_error, _noteId, context) => {
+			console.log(context.previousNotes, "inError");
+
+			client.setQueryData(["notes"], () => {
+				return context.previousNotes;
+			});
+		},
+		onSettled: () => {
+			client.invalidateQueries({ queryKey: ["notes"] });
 		},
 	});
 
