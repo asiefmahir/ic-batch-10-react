@@ -6,6 +6,7 @@ import Cart from "../pages/Cart";
 import Posts from "../pages/Posts";
 import App from "../App";
 import AddProduct from "../pages/AddProduct";
+import ClassComponent from "../pages/ClassComponentExamples";
 
 export const ourRouter = createBrowserRouter([
 	{
@@ -17,6 +18,7 @@ export const ourRouter = createBrowserRouter([
 			{ path: "/posts", element: <Posts /> },
 			{ path: "/notes", element: <App /> },
 			{ path: "/add-product", element: <AddProduct /> },
+			{ path: "/class-compo", element: <ClassComponent /> },
 		],
 	},
 ]);
