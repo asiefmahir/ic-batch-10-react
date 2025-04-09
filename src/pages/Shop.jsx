@@ -1,9 +1,28 @@
+import { useState, useEffect } from "react";
 import ProductCard from "../components/ProductCard";
+import { db } from "../firebase";
+import { collection, getDocs } from "firebase/firestore";
 
-import { useGetProducts } from "../hooks/server-states/useProduct";
+// import { useGetProducts } from "../hooks/server-states/useProduct";
 
 const Shop = () => {
-	const { products } = useGetProducts();
+	// const { products } = useGetProducts();
+	const [products, setProducts] = useState([]);
+
+	useEffect(() => {
+		const getProducts = async () => {
+			const productsRef = collection(db, "products");
+			const data = await getDocs(productsRef);
+			const productsArray = data.docs.map((doc) => ({
+				...doc.data(),
+				id: doc.id,
+			}));
+			setProducts(productsArray);
+			console.log(productsArray, "data");
+		};
+		getProducts();
+	}, []);
+
 	return (
 		<div>
 			<div className="page-banner">

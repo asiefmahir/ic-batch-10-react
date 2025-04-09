@@ -8,6 +8,7 @@ import { Provider } from "react-redux";
 import { ourStore } from "./store";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { ToastContainer } from "react-toastify";
 
 const ourClient = new QueryClient();
 
@@ -17,6 +18,7 @@ createRoot(document.getElementById("root")).render(
 			<QueryClientProvider client={ourClient}>
 				<ReactQueryDevtools initialIsOpen={true} />
 				<RouterProvider router={ourRouter} />
+				<ToastContainer />
 			</QueryClientProvider>
 		</Provider>
 	</StrictMode>,
