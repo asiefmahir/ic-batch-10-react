@@ -1,5 +1,8 @@
 import { useState } from "react";
-import { useCreateProduct } from "../hooks/server-states/useProduct";
+import { db } from "../firebase";
+import { addDoc, collection } from "firebase/firestore";
+import { toast } from "react-toastify";
+// import { useCreateProduct } from "../hooks/server-states/useProduct";
 
 const initProduct = {
 	title: "",
@@ -10,7 +13,7 @@ const initProduct = {
 
 const AddProduct = () => {
 	const [product, setProduct] = useState(initProduct);
-	const { createProductMutation } = useCreateProduct();
+	// const { createProductMutation } = useCreateProduct();
 
 	const handleChange = (e) => {
 		console.log(e.target.name);
@@ -23,9 +26,11 @@ const AddProduct = () => {
 		// setProduct({...product, price: 45})
 	};
 
-	const submitHandler = (e) => {
+	const submitHandler = async (e) => {
 		e.preventDefault();
-		createProductMutation.mutate(product);
+		await addDoc(collection(db, "products"), product);
+		toast("Product Created Successfully");
+		// createProductMutation.mutate(product);
 		setProduct(initProduct);
 		// useCreateProductMutation()
 	};
