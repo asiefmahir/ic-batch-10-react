@@ -9,17 +9,20 @@ import { ourStore } from "./store";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { ToastContainer } from "react-toastify";
+import AuthProvider from "./contexts/Auth";
 
 const ourClient = new QueryClient();
 
 createRoot(document.getElementById("root")).render(
 	<StrictMode>
-		<Provider store={ourStore}>
-			<QueryClientProvider client={ourClient}>
-				<ReactQueryDevtools initialIsOpen={true} />
-				<RouterProvider router={ourRouter} />
-				<ToastContainer />
-			</QueryClientProvider>
-		</Provider>
+		<AuthProvider>
+			<Provider store={ourStore}>
+				<QueryClientProvider client={ourClient}>
+					<ReactQueryDevtools initialIsOpen={true} />
+					<RouterProvider router={ourRouter} />
+					<ToastContainer />
+				</QueryClientProvider>
+			</Provider>
+		</AuthProvider>
 	</StrictMode>,
 );
