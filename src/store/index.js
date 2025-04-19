@@ -29,21 +29,23 @@ import { cartSlice } from "./reducers/cart";
 import { postSlice } from "./reducers/post";
 import { setupListeners } from "@reduxjs/toolkit/query/react";
 
-import { rootApi } from "../services";
+// import { rootApi } from "../services";
+import { apiSlice } from "./features/api/apiSlice";
 
 const rootReducer = {
 	counter: counterReducer,
 	theme: themeReducer,
 	cart: cartSlice.reducer,
 	post: postSlice.reducer,
-	[rootApi.reducerPath]: rootApi.reducer,
+	// [rootApi.reducerPath]: rootApi.reducer,
+	[apiSlice.reducerPath]: apiSlice.reducer,
 };
 
 // rootApi.middleware
 
 export const ourStore = configureStore({
 	reducer: rootReducer,
-	middleware: (gDM) => gDM().concat(rootApi.middleware),
+	middleware: (gDM) => gDM().concat(apiSlice.middleware),
 });
 
 setupListeners(ourStore.dispatch);

@@ -9,6 +9,8 @@ import AddProduct from "../pages/AddProduct";
 import ClassComponent from "../pages/ClassComponentExamples";
 import SignupForm from "../pages/SignUp";
 import Login from "../pages/Login";
+import PrivateRoute from "../components/PrivateRoute";
+import PrivateAdminRoute from "../components/PrivateAdminRoute";
 
 export const ourRouter = createBrowserRouter([
 	{
@@ -16,10 +18,24 @@ export const ourRouter = createBrowserRouter([
 		element: <Root />,
 		children: [
 			{ path: "/", element: <Shop /> },
-			{ path: "/cart", element: <Cart /> },
+			{
+				path: "/cart",
+				element: (
+					<PrivateRoute>
+						<Cart />
+					</PrivateRoute>
+				),
+			},
 			{ path: "/posts", element: <Posts /> },
 			{ path: "/notes", element: <App /> },
-			{ path: "/add-product", element: <AddProduct /> },
+			{
+				path: "/add-product",
+				element: (
+					<PrivateAdminRoute>
+						<AddProduct />
+					</PrivateAdminRoute>
+				),
+			},
 			{ path: "/class-compo", element: <ClassComponent /> },
 			{ path: "/signup", element: <SignupForm /> },
 			{ path: "/login", element: <Login /> },

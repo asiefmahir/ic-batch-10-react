@@ -23,9 +23,11 @@ function Nav() {
 								</li>
 							</>
 						)}
-						<li>
-							<Link to="/cart">Cart</Link>
-						</li>
+						{userLoggedIn && (
+							<li>
+								<Link to="/cart">Cart</Link>
+							</li>
+						)}
 						<li>
 							<Link to="/posts">Posts</Link>
 						</li>
