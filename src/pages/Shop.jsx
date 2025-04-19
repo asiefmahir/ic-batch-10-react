@@ -1,27 +1,33 @@
-import { useState, useEffect } from "react";
 import ProductCard from "../components/ProductCard";
+import { useState, useEffect } from "react";
+import { useGetAllProductsQuery } from "../store/features/api/apiSlice";
 import { db } from "../firebase";
 import { collection, getDocs } from "firebase/firestore";
-
 // import { useGetProducts } from "../hooks/server-states/useProduct";
 
 const Shop = () => {
-	// const { products } = useGetProducts();
-	const [products, setProducts] = useState([]);
+	// console.log(anything);
 
-	useEffect(() => {
-		const getProducts = async () => {
-			const productsRef = collection(db, "products");
-			const data = await getDocs(productsRef);
-			const productsArray = data.docs.map((doc) => ({
-				...doc.data(),
-				id: doc.id,
-			}));
-			setProducts(productsArray);
-			console.log(productsArray, "data");
-		};
-		getProducts();
-	}, []);
+	const { data } = useGetAllProductsQuery();
+	console.log(data);
+
+	// console.log(data);
+
+	// const [products, setProducts] = useState([]);
+
+	// useEffect(() => {
+	// 	const getProducts = async () => {
+	// 		const productsRef = collection(db, "products");
+	// 		const data = await getDocs(productsRef);
+	// 		const productsArray = data.docs.map((doc) => ({
+	// 			...doc.data(),
+	// 			id: doc.id,
+	// 		}));
+	// 		setProducts(productsArray);
+	// 		console.log(productsArray, "data");
+	// 	};
+	// 	getProducts();
+	// }, []);
 
 	return (
 		<div>
@@ -41,7 +47,7 @@ const Shop = () => {
 					</div>
 					<div className="section__content">
 						<div className="grid three">
-							{products?.map((product) => (
+							{data?.map((product) => (
 								<ProductCard
 									key={product.id}
 									product={product}
