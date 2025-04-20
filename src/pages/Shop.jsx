@@ -1,33 +1,9 @@
 import ProductCard from "../components/ProductCard";
-import { useState, useEffect } from "react";
+
 import { useGetAllProductsQuery } from "../store/features/api/apiSlice";
-import { db } from "../firebase";
-import { collection, getDocs } from "firebase/firestore";
-// import { useGetProducts } from "../hooks/server-states/useProduct";
 
 const Shop = () => {
-	// console.log(anything);
-
 	const { data } = useGetAllProductsQuery();
-	console.log(data);
-
-	// console.log(data);
-
-	// const [products, setProducts] = useState([]);
-
-	// useEffect(() => {
-	// 	const getProducts = async () => {
-	// 		const productsRef = collection(db, "products");
-	// 		const data = await getDocs(productsRef);
-	// 		const productsArray = data.docs.map((doc) => ({
-	// 			...doc.data(),
-	// 			id: doc.id,
-	// 		}));
-	// 		setProducts(productsArray);
-	// 		console.log(productsArray, "data");
-	// 	};
-	// 	getProducts();
-	// }, []);
 
 	return (
 		<div>

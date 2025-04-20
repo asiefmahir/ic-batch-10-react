@@ -1,6 +1,7 @@
 import { useState } from "react";
 // import { useAddProductMutation } from "../store/features/api/apiSlice";
 import { toast } from "react-toastify";
+import { useCreateProductMutation } from "../store/features/api/apiSlice";
 // import { useCreateProduct } from "../hooks/server-states/useProduct";
 
 const initProduct = {
@@ -12,8 +13,7 @@ const initProduct = {
 
 const AddProduct = () => {
 	const [product, setProduct] = useState(initProduct);
-	// const [addProduct] = useAddProductMutation();
-	// const { createProductMutation } = useCreateProduct();
+	const [addProduct] = useCreateProductMutation();
 
 	const handleChange = (e) => {
 		console.log(e.target.name);
@@ -29,10 +29,33 @@ const AddProduct = () => {
 	const submitHandler = async (e) => {
 		e.preventDefault();
 		// addProduct(product);
+		addProduct(product);
 		toast("Product Created Successfully");
 		// createProductMutation.mutate(product);
 		setProduct(initProduct);
 		// useCreateProductMutation()
+	};
+
+	const handleImageChange = async (e) => {
+		const file = e.target.files[0];
+		console.log(file, "file");
+		const data = new FormData();
+
+		data.append("file", file);
+		data.append("could_name", "dcdga3gke");
+		data.append("upload_preset", "our-react-project");
+
+		const res = await fetch(
+			`https://api.cloudinary.com/v1_1/dcdga3gke/image/upload`,
+			{
+				method: "POST",
+				body: data,
+			},
+		);
+
+		const result = await res.json();
+		console.log(result, "result");
+		setProduct({ ...product, image: result.secure_url });
 	};
 
 	return (
@@ -77,15 +100,20 @@ const AddProduct = () => {
 				/>
 				<br />
 				<p>Image</p>
-				<input
-					value={product.image}
-					type="text"
-					name="image"
-					required
-					style={{ display: "block", width: "70%" }}
-					onChange={handleChange}
-				/>
-				<input type="submit" />
+
+				<input type="file" name="image" onChange={handleImageChange} />
+				<br />
+				<p>Image Preview</p>
+				{product.image && (
+					<img
+						style={{ width: "100px" }}
+						src={product.image}
+						alt={product.title}
+					/>
+				)}
+				<br />
+
+				<input type="submit" disabled={product.image === ""} />
 			</form>
 		</>
 	);

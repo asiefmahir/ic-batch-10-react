@@ -11,6 +11,7 @@ import SignupForm from "../pages/SignUp";
 import Login from "../pages/Login";
 import PrivateRoute from "../components/PrivateRoute";
 import PrivateAdminRoute from "../components/PrivateAdminRoute";
+import AllProducts from "../pages/AllProducts";
 
 export const ourRouter = createBrowserRouter([
 	{
@@ -24,6 +25,14 @@ export const ourRouter = createBrowserRouter([
 					<PrivateRoute>
 						<Cart />
 					</PrivateRoute>
+				),
+			},
+			{
+				path: "admin/all-products",
+				element: (
+					<PrivateAdminRoute>
+						<AllProducts />
+					</PrivateAdminRoute>
 				),
 			},
 			{ path: "/posts", element: <Posts /> },

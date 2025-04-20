@@ -39,6 +39,13 @@ function Nav() {
 								<Link to="/add-product">Add Product</Link>
 							</li>
 						)}
+						{userLoggedIn && role === "admin" && (
+							<li>
+								<Link to="/admin/all-products">
+									All Product
+								</Link>
+							</li>
+						)}
 						<li>
 							<Link to="/class-compo">Class Component</Link>
 						</li>
