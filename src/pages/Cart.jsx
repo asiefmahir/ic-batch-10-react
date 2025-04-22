@@ -1,12 +1,14 @@
 import CartItem from "../components/CartItem";
 import { useSelector, useDispatch } from "react-redux";
 import { clearCart } from "../store/actions/cart";
+import { useNavigate } from "react-router";
 
 const Cart = () => {
 	const cart = useSelector((storeState) => storeState.cart);
 	const dispatch = useDispatch();
 	let totalPrice = 0;
 	cart.forEach((item) => (totalPrice += item.quantity * item.price));
+	const navigate = useNavigate();
 	return (
 		<>
 			<div className="account-setting__content">
@@ -44,6 +46,19 @@ const Cart = () => {
 						Clear Cart
 					</button>
 				</div>
+				{cart.length !== 0 && (
+					<div className="mt-50">
+						<button
+							onClick={() => {
+								navigate("/checkout");
+							}}
+							type="button"
+							className="btn-big"
+						>
+							Proceed to Checkout
+						</button>
+					</div>
+				)}
 			</div>
 		</>
 	);

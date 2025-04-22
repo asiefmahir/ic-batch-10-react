@@ -12,6 +12,7 @@ import Login from "../pages/Login";
 import PrivateRoute from "../components/PrivateRoute";
 import PrivateAdminRoute from "../components/PrivateAdminRoute";
 import AllProducts from "../pages/AllProducts";
+import Checkout from "../pages/Checkout";
 
 export const ourRouter = createBrowserRouter([
 	{
@@ -37,6 +38,14 @@ export const ourRouter = createBrowserRouter([
 			},
 			{ path: "/posts", element: <Posts /> },
 			{ path: "/notes", element: <App /> },
+			{
+				path: "/checkout",
+				element: (
+					<PrivateRoute>
+						<Checkout />
+					</PrivateRoute>
+				),
+			},
 			{
 				path: "/add-product",
 				element: (
