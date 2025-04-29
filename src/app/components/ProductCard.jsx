@@ -1,7 +1,10 @@
-// import { useDispatch } from "react-redux";
+"use client";
+
+import { useDispatch } from "react-redux";
+import { addToCart } from "@/store";
 // import { addToCart } from "../store/actions/cart";
 const ProductCard = ({ product }) => {
-	// const dispatch = useDispatch();
+	const dispatch = useDispatch();
 	return (
 		<div className="ingredient">
 			<div className="ingredient__image">
@@ -20,7 +23,7 @@ const ProductCard = ({ product }) => {
 			<div className="ingredient__btn">
 				<button
 					className="btn-white"
-					// onClick={() => dispatch(addToCart(product))}
+					onClick={() => dispatch(addToCart(product))}
 
 					// addToCart -> {
 					// 		type: "cart/addToCart",

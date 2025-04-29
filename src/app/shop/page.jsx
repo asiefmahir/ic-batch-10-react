@@ -39,4 +39,6 @@ const Shop = async () => {
 	);
 };
 
+// export const getStaticProps
+
 export default Shop;
