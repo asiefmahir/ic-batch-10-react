@@ -1,6 +1,6 @@
 // "use client";
 // import { useState } from "react";
-import { addProduct } from "../actions/product";
+import { addProduct } from "@/app/actions/product";
 // import { useAddProductMutation } from "../store/features/api/apiSlice";
 // import { toast } from "react-toastify";
 // import { useCreateProductMutation } from "../store/features/api/apiSlice";
